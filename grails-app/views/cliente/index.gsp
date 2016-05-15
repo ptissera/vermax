@@ -32,9 +32,9 @@
 					
 						<g:sortableColumn property="fechaDeNacimiento" title="${message(code: 'cliente.fechaDeNacimiento.label', default: 'Fecha De Nacimiento')}" />
 					
-						<g:sortableColumn property="domicilio" title="${message(code: 'cliente.domicilio.label', default: 'Domicilio')}" />
+						<g:sortableColumn property="calle" title="${message(code: 'cliente.calle.label', default: 'Calle')}" />
 					
-						<g:sortableColumn property="email" title="${message(code: 'cliente.email.label', default: 'Email')}" />
+						<g:sortableColumn property="numeracion" title="${message(code: 'cliente.numeracion.label', default: 'Numeracion')}" />
 					
 					</tr>
 				</thead>
@@ -50,9 +50,9 @@
 					
 						<td><g:formatDate date="${clienteInstance.fechaDeNacimiento}" /></td>
 					
-						<td>${fieldValue(bean: clienteInstance, field: "domicilio")}</td>
+						<td>${fieldValue(bean: clienteInstance, field: "calle")}</td>
 					
-						<td>${fieldValue(bean: clienteInstance, field: "email")}</td>
+						<td>${fieldValue(bean: clienteInstance, field: "numeracion")}</td>
 					
 					</tr>
 				</g:each>

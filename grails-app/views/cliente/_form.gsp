@@ -38,12 +38,48 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: clienteInstance, field: 'domicilio', 'error')} ">
-	<label for="domicilio">
-		<g:message code="cliente.domicilio.label" default="Domicilio" />
+<div class="fieldcontain ${hasErrors(bean: clienteInstance, field: 'calle', 'error')} ">
+	<label for="calle">
+		<g:message code="cliente.calle.label" default="Calle" />
 		
 	</label>
-	<g:textArea name="domicilio" cols="40" rows="5" maxlength="200" value="${clienteInstance?.domicilio}"/>
+	<g:textArea name="calle" cols="40" rows="5" maxlength="200" value="${clienteInstance?.calle}"/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: clienteInstance, field: 'numeracion', 'error')} required">
+	<label for="numeracion">
+		<g:message code="cliente.numeracion.label" default="Numeracion" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:field name="numeracion" type="number" value="${clienteInstance.numeracion}" required=""/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: clienteInstance, field: 'piso', 'error')} required">
+	<label for="piso">
+		<g:message code="cliente.piso.label" default="Piso" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="piso" required="" value="${clienteInstance?.piso}"/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: clienteInstance, field: 'dpto', 'error')} required">
+	<label for="dpto">
+		<g:message code="cliente.dpto.label" default="Dpto" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="dpto" required="" value="${clienteInstance?.dpto}"/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: clienteInstance, field: 'barrio', 'error')} ">
+	<label for="barrio">
+		<g:message code="cliente.barrio.label" default="Barrio" />
+		
+	</label>
+	<g:select id="barrio" name="barrio.id" from="${vermax.Barrio.list()}" optionKey="id" value="${clienteInstance?.barrio?.id}" class="many-to-one" noSelection="['null': '']"/>
 
 </div>
 
@@ -82,5 +118,4 @@
 	<g:select name="sexo" from="${clienteInstance.constraints.sexo.inList}" required="" value="${clienteInstance?.sexo}" valueMessagePrefix="cliente.sexo"/>
 
 </div>
-
 

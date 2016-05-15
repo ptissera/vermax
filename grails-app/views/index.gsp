@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main"/>
-		<title>Welcome to Grails</title>
+		<title>Lavanderia</title>
 		<style type="text/css" media="screen">
 			#status {
 				background-color: #eee;
@@ -87,6 +87,10 @@
 				<h2><g:link controller="Rol">Rol</g:link></h2>
 				<h2><g:link controller="Cliente">Cliente</g:link></h2>
 				<h2><g:link controller="Usuario">Usuario</g:link></h2>
+				<h2><g:link controller="Producto">Producto</g:link></h2>
+				<h2><g:link controller="TipoServicio">Servicio</g:link></h2>
+				<h2><g:link controller="DetalleOrdenTrabajo">Detalle</g:link></h2>
+				<h2><g:link controller="OrdenDeTrabajo">Orden de Trabajo</g:link></h2>
 			</div>
 		</div>
 	</body>

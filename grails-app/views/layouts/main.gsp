@@ -17,7 +17,7 @@
 		<g:layoutHead/>
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>
+		<div id="grailsLogo" role="banner"><a href="https://www.google.com.ar/imgres?imgurl=http%3A%2F%2Fstatic.miweb.paginasamarillas.es%2Fvar%2Fm_9%2F9e%2F9ed%2F2978%2F40661-la-nueva-lavanderia-constanza-banner.jpg&imgrefurl=http%3A%2F%2Fwww.lanuevalavanderiaconstanza.net%2F&docid=C_c7X052Wq0lcM&tbnid=FHfOOUL1_ZxkJM%3A&w=1905&h=752&bih=581&biw=1169&ved=0ahUKEwj43oOnl7zMAhXJF5AKHZ4_CeYQMwgyKAIwAg&iact=mrc&uact=8"><asset:image src="grails_logo.png" alt="Grails"/></a></div>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>

@@ -42,7 +42,7 @@ class DetalleOrdenTrabajoController {
 		if (ordenDeTrabajoInstance == null){
 			println "es muy trola"
 		} else {
-		ordenDeTrabajoInstance.detalle.add(detalleOrdenTrabajoInstance)
+		ordenDeTrabajoInstance.addDetalle(detalleOrdenTrabajoInstance)
 		request.session.setAttribute("currentOrden", ordenDeTrabajoInstance)
 		}
 		redirect  controller: "ordenDeTrabajo", action: "addedDetalle", method: "POST"

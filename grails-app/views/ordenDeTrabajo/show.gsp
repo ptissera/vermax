@@ -50,11 +50,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${ordenDeTrabajoInstance?.detalle}">
+				<g:if test="${ordenDeTrabajoInstance?.detalles}">
 				<li class="fieldcontain">
 					<span id="detalle-label" class="property-label"><g:message code="ordenDeTrabajo.detalle.label" default="Detalle" /></span>
 					
-						<g:each in="${ordenDeTrabajoInstance.detalle}" var="d">
+						<g:each in="${ordenDeTrabajoInstance.detalles}" var="d">
 						<span class="property-value" aria-labelledby="detalle-label"><g:link controller="detalleOrdenTrabajo" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					

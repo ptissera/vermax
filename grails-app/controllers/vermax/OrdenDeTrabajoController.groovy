@@ -4,6 +4,7 @@ package vermax
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import org.apache.catalina.core.ApplicationHttpRequest
 
 @Transactional(readOnly = true)
 class OrdenDeTrabajoController {
@@ -22,12 +23,6 @@ class OrdenDeTrabajoController {
     def create() {
         respond new OrdenDeTrabajo(params)
     }
-	
-	def addedDetalle(OrdenDeTrabajo ordenDeTrabajoInstance) {
-		ordenDeTrabajoInstance = request.session.getAttribute("currentOrden")
-		respond ordenDeTrabajoInstance, view:'create'
-		return
-	}
 
     @Transactional
     def save(OrdenDeTrabajo ordenDeTrabajoInstance) {
@@ -40,6 +35,39 @@ class OrdenDeTrabajoController {
             respond ordenDeTrabajoInstance.errors, view:'create'
             return
         }
+        
+		for (int i=0; i < 100; i++){
+			def detalles = params.get("detallesList["+i+"]")
+			if (detalles != null){
+				def detalle = new DetalleOrdenTrabajo(
+						cantidad: detalles.cantidad,
+						servicio: detalles.servicio,
+						secado: detalles.secado == "on",
+						lavado: detalles.lavado == "on")
+				if (detalle.hasErrors()) {
+					flash.errors = detalle.errors
+					respond ordenDeTrabajoInstance.errors, view:'create'
+					return
+				}			
+				ordenDeTrabajoInstance.detalles.add(detalle
+				    
+				)
+			} else {
+			   break
+			}
+		}
+				
+		// find the phones that are marked for deletion
+		def _toBeDeleted = ordenDeTrabajoInstance.detalles.findAll {(it?.deleted || (it == null))}
+		// if there are phones to be deleted remove them all
+		if (_toBeDeleted) {
+			ordenDeTrabajoInstance.detalles.removeAll(_toBeDeleted)
+		}
+
+		//update my indexes
+		ordenDeTrabajoInstance.detalles.eachWithIndex(){det, i ->
+			det.index = i
+		}
 
         ordenDeTrabajoInstance.save flush:true
 
@@ -56,15 +84,6 @@ class OrdenDeTrabajoController {
         respond ordenDeTrabajoInstance
     }
 	
-	def addDetalle() {
-		def ordenDeTrabajoInstance = request.session.getAttribute("currentOrden")
-		if (ordenDeTrabajoInstance == null){
-			ordenDeTrabajoInstance=new OrdenDeTrabajo(params)
-		}
-        request.session.setAttribute("currentOrden", ordenDeTrabajoInstance)
-		redirect  controller: "detalleOrdenTrabajo", action: "create", method: "POST"
-    }
-
     @Transactional
     def update(OrdenDeTrabajo ordenDeTrabajoInstance) {
         if (ordenDeTrabajoInstance == null) {

@@ -31,10 +31,11 @@
 				</fieldset>
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-			        <g:link class="edit" action="addDetalle">Agregar Detalle</g:link>
 				</fieldset>
 			</g:form>
-			<g:render template="detalle" model="['servicio': 1,'i':'_clone','hidden':true,secado: true, lavado: true]" />
+			<table id="patron" style="display:none;">
+			<g:render template="detalle" model="['servicio': 2,'i':'_clone','hidden':true, secado: true, lavado: true]" />
+			</table>
 		</div>
 	</body>
 </html>

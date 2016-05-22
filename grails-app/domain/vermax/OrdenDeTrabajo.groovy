@@ -24,4 +24,12 @@ class OrdenDeTrabajo {
 		fechaInicio nullable:true,  blank: true
 	}
 	def beforeInsert = { fechaInicio = new Date() }
+	
+	def float getTotal() {
+		float total = 0;
+		detalles.each{
+			total +=it.getTotal()
+			}
+		 return total
+	}
 }

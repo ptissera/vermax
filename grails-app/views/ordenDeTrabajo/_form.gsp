@@ -22,6 +22,15 @@
 </div>
 
 <div
+	class="fieldcontain ${hasErrors(bean: ordenDeTrabajoInstance, field: 'detalle', 'error')} ">
+	 <fieldset class="buttons">
+<input type="button" value="Agregar Detalle" class="edit" onclick="addDetalle();" />
+</fieldset>
+	
+</div>
+
+
+<div
 	class="fieldcontain ${hasErrors(bean: ordenDeTrabajoInstance, field: 'observaciones', 'error')} ">
 	<label for="observaciones"> <g:message
 			code="ordenDeTrabajo.observaciones.label" default="Observaciones" />

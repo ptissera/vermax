@@ -21,4 +21,17 @@ class DetalleOrdenTrabajo {
 	def String toString() {
 		return "${index}) ${cantidad}- ${servicio.nombre}" + (lavado?" - lavado":"") + (secado ?" - secado ":"")
 	}
+	
+	def float getTotal() {
+		float total = 0;
+		
+		 if(lavado){
+			 total = cantidad * servicio.precioLavado
+		 }
+		 
+		 if(secado){
+			 total += cantidad * servicio.precioSecado
+		 }
+		 return total
+	}
 }

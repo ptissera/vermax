@@ -36,6 +36,26 @@
 					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
 				</fieldset>
 			</g:form>
+			<table id="patron" style="display:none;">
+			<g:render template="detalle" model="['servicio': 2,'i':'_clone','hidden':true, secado: true, lavado: true]" />
+			</table>
+			<script>
+			   function bindingEvents(){
+		        $(".itemServicio").each(function() {
+		        	  $(this).on('change',itemHasChanged);
+		        });
+		        $(".itemCantidad").each(function() {
+		        	  $(this).on('change',itemHasChanged);
+		        });
+				$(".itemLavado").each(function() {
+		        	  $(this).on('change',itemHasChanged);
+				});
+				$(".itemSecado").each(function() {
+		        	  $(this).on('change',itemHasChanged);
+				});
+			   }
+			   bindingEvents();
+			</script>
 		</div>
 	</body>
 </html>

@@ -44,7 +44,7 @@
 					
 						<td>${fieldValue(bean: ordenDeTrabajoInstance, field: "cliente")}</td>
 					
-						<td><g:formatDate date="${ordenDeTrabajoInstance.fechaInicio}" /></td>
+						<td><g:formatDate format="dd/MM/yyyy" date="${ordenDeTrabajoInstance.fechaInicio}" /></td>
 					
 					</tr>
 				</g:each>

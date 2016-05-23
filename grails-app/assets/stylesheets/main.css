@@ -48,7 +48,22 @@ body {
 }
 
 #grailsLogo {
-	background-color: #abbf78;
+	background-color: #3498DB;
+	padding: 10px 20px 10px 120px;
+	height: 100px;
+}
+
+#grailsLogo	> h1 {
+	float: right;
+	padding-top: 50px;
+	color: #EAF2F8;
+	font-size: 60px;
+	margin: 0;
+}
+		
+#grailsLogo	> img {
+	float: right;
+	height: 150px;
 }
 
 /* replace with .no-boxshadow body if you have modernizr available */
@@ -65,7 +80,7 @@ body {
 }
 
 a:link, a:visited, a:hover {
-	color: #48802c;
+	color: #2980B9;
 }
 
 a:hover, a:active {
@@ -73,7 +88,7 @@ a:hover, a:active {
 }
 
 h1 {
-	color: #48802c;
+	color: #2980B9;
 	font-weight: normal;
 	font-size: 1.25em;
 	margin: 0.8em 0 0.3em 0;
@@ -88,12 +103,6 @@ img {
 }
 
 /* GENERAL */
-
-#grailsLogo a {
-	display: inline-block;
-	margin: 1em;
-}
-
 .content {
 }
 
@@ -108,7 +117,7 @@ img {
 }
 
 .footer {
-	background: #abbf78;
+	background: #3498DB;
 	color: #000;
 	clear: both;
 	font-size: 0.8em;
@@ -283,7 +292,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 .required-indicator {
-	color: #48802C;
+	color: #2980B9;
 	display: inline-block;
 	font-weight: bold;
 	margin-left: 0.3em;
@@ -471,7 +480,7 @@ tr:nth-child(even) {background: #ffffff}
 tr:nth-child(odd) {background: #f7f7f7}
 
 th:hover, tr:hover {
-	background: #E1F2B6;
+	background: #AED6F1;
 }
 
 /* PAGINATION */

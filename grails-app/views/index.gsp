@@ -82,12 +82,14 @@
 	</head>
 	<body>
 		<div id="page-body" role="main">
+		
 			<pulko:item controller="OrdenDeTrabajo" name="Orden de trabajo" action="index" image="icon_lavarropa.png"/>
 			<pulko:item controller="Rol" name="Rol" action="index" image="icon_roles.png"/>
 			<pulko:item controller="Cliente" name="Cliente" action="index" image="icon_clientes.png"/>
 			<pulko:item controller="Usuario" name="Usuario" action="index" image="icon_usuarios.png"/>
 			<pulko:item controller="Cobro" name="Cobro" action="index" image="icon_cobros.png"/>
 			<pulko:item controller="TipoServicio" name="Servicios" action="index" image="icon_servicios.png"/>
+			
 		</div>
 	</body>
 </html>

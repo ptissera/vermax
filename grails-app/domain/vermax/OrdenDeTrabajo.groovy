@@ -32,4 +32,7 @@ class OrdenDeTrabajo {
 			}
 		 return total
 	}
+	@Override String toString() {
+		return "Nro: " + getId() +" - "+ getCliente()
+	}
 }

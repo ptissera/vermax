@@ -41,7 +41,7 @@
 			}
 
 			#page-body {
-				margin: 2em 1em 1.25em 18em;
+				margin: 2.5em 0em 0em 1.7em;
 			}
 
 			h2 {
@@ -82,16 +82,12 @@
 	</head>
 	<body>
 		<div id="page-body" role="main">
-			<h1>Ver-Max</h1>
-			<div id="controller-list" role="navigation"><br>
-				<h2><g:link controller="Rol">Rol</g:link></h2>
-				<h2><g:link controller="Cliente">Cliente</g:link></h2>
-				<h2><g:link controller="Usuario">Usuario</g:link></h2>
-				<h2><g:link controller="TipoServicio">Servicio</g:link></h2>
-				<h2><g:link controller="OrdenDeTrabajo">Orden de Trabajo</g:link></h2>
-				<h2><g:link controller="Cobro">Cobrar</g:link></h2>
-				
-			</div>
+			<pulko:item controller="OrdenDeTrabajo" name="Orden de trabajo" action="index" image="icon_lavarropa.png"/>
+			<pulko:item controller="Rol" name="Rol" action="index" image="icon_roles.png"/>
+			<pulko:item controller="Cliente" name="Cliente" action="index" image="icon_clientes.png"/>
+			<pulko:item controller="Usuario" name="Usuario" action="index" image="icon_usuarios.png"/>
+			<pulko:item controller="Cobro" name="Cobro" action="index" image="icon_cobros.png"/>
+			<pulko:item controller="TipoServicio" name="Servicios" action="index" image="icon_servicios.png"/>
 		</div>
 	</body>
 </html>

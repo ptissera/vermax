@@ -6,7 +6,7 @@ class SecutityFilters {
 		all(controller:'*', action:'*') {
 			before = {
 				if (!session.usuario && !actionName.equals('login')) {
-					redirect(uri: "/authorize/login")
+					redirect(controller:"authorize",action: 'login')
 				}
 			}
 			after = { Map model ->

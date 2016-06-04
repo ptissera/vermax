@@ -9,33 +9,33 @@ import org.apache.catalina.core.ApplicationHttpRequest
 @Transactional(readOnly = true)
 class OrdenDeTrabajoController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond OrdenDeTrabajo.list(params), model:[ordenDeTrabajoInstanceCount: OrdenDeTrabajo.count()]
-    }
+	def index(Integer max) {
+		params.max = Math.min(max ?: 10, 100)
+		respond OrdenDeTrabajo.list(params), model:[ordenDeTrabajoInstanceCount: OrdenDeTrabajo.count()]
+	}
 
-    def show(OrdenDeTrabajo ordenDeTrabajoInstance) {
-        respond ordenDeTrabajoInstance
-    }
+	def show(OrdenDeTrabajo ordenDeTrabajoInstance) {
+		respond ordenDeTrabajoInstance
+	}
 
-    def create() {
-        respond new OrdenDeTrabajo(params)
-    }
+	def create() {
+		respond new OrdenDeTrabajo(params)
+	}
 
-    @Transactional
-    def save(OrdenDeTrabajo ordenDeTrabajoInstance) {
-        if (ordenDeTrabajoInstance == null) {
-            notFound()
-            return
-        }
+	@Transactional
+	def save(OrdenDeTrabajo ordenDeTrabajoInstance) {
+		if (ordenDeTrabajoInstance == null) {
+			notFound()
+			return
+		}
 
-        if (ordenDeTrabajoInstance.hasErrors()) {
-            respond ordenDeTrabajoInstance.errors, view:'create'
-            return
-        }
-        
+		if (ordenDeTrabajoInstance.hasErrors()) {
+			respond ordenDeTrabajoInstance.errors, view:'create'
+			return
+		}
+
 		for (int i=0; i < 100; i++){
 			def detalles = params.get("detallesList["+i+"]")
 			if (detalles != null){
@@ -48,15 +48,15 @@ class OrdenDeTrabajoController {
 					flash.errors = detalle.errors
 					respond ordenDeTrabajoInstance.errors, view:'create'
 					return
-				}			
+				}
 				ordenDeTrabajoInstance.detalles.add(detalle
-				    
-				)
+
+						)
 			} else {
-			   break
+				break
 			}
 		}
-				
+
 		// find the phones that are marked for deletion
 		def _toBeDeleted = ordenDeTrabajoInstance.detalles.findAll {(it?.deleted || (it == null))}
 		// if there are phones to be deleted remove them all
@@ -69,70 +69,117 @@ class OrdenDeTrabajoController {
 			det.index = i
 		}
 
-        ordenDeTrabajoInstance.save flush:true
+		ordenDeTrabajoInstance.save flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'ordenDeTrabajo.label', default: 'OrdenDeTrabajo'), ordenDeTrabajoInstance.id])
-                redirect ordenDeTrabajoInstance
-            }
-            '*' { respond ordenDeTrabajoInstance, [status: CREATED] }
-        }
-    }
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.created.message', args: [message(code: 'ordenDeTrabajo.label', default: 'OrdenDeTrabajo'), ordenDeTrabajoInstance.id])
+				redirect ordenDeTrabajoInstance
+			}
+			'*' { respond ordenDeTrabajoInstance, [status: CREATED] }
+		}
+	}
 
-    def edit(OrdenDeTrabajo ordenDeTrabajoInstance) {
-        respond ordenDeTrabajoInstance
-    }
+	def edit(OrdenDeTrabajo ordenDeTrabajoInstance) {
+		respond ordenDeTrabajoInstance
+	}
+
+	@Transactional
+	def iniciarLavado(OrdenDeTrabajo ordenDeTrabajoInstance) {
+		if ( ordenDeTrabajoInstance.estado != EstadosDeLaOrden.Iniciado) {
+			ordenDeTrabajoInstance.estado = EstadosDeLaOrden.Iniciado
+			ordenDeTrabajoInstance.fechaInicio = new Date()
+			ordenDeTrabajoInstance.save flush:true
+		}
+		respond ordenDeTrabajoInstance, view:'show'
+	}
+
+	@Transactional
+	def completarLavado(OrdenDeTrabajo ordenDeTrabajoInstance) {
+		if ( ordenDeTrabajoInstance.estado != EstadosDeLaOrden.Completo) {
+			ordenDeTrabajoInstance.estado = EstadosDeLaOrden.Completo
+			ordenDeTrabajoInstance.fechaCompletado = new Date()
+			ordenDeTrabajoInstance.save flush:true
+		}
+		respond ordenDeTrabajoInstance, view:'show'
+	}
+
+	@Transactional
+	def entregarLavado(OrdenDeTrabajo ordenDeTrabajoInstance) {
+		if ( ordenDeTrabajoInstance.estado != EstadosDeLaOrden.Entregado) {
+			ordenDeTrabajoInstance.estado = EstadosDeLaOrden.Entregado
+			ordenDeTrabajoInstance.fechaEntrega = new Date()
+			ordenDeTrabajoInstance.save flush:true
+		}
+		respond ordenDeTrabajoInstance, view:'show'
+	}
+
+	@Transactional
+	def cancelarLavado(OrdenDeTrabajo ordenDeTrabajoInstance) {
+		if ( ordenDeTrabajoInstance.estado != EstadosDeLaOrden.Cancelado) {
+			ordenDeTrabajoInstance.estado = EstadosDeLaOrden.Cancelado
+			ordenDeTrabajoInstance.fechaCancelado = new Date()
+			ordenDeTrabajoInstance.save flush:true
+		}
+		respond ordenDeTrabajoInstance, view:'show'
+	}
 	
-    @Transactional
-    def update(OrdenDeTrabajo ordenDeTrabajoInstance) {
-        if (ordenDeTrabajoInstance == null) {
-            notFound()
-            return
-        }
+	@Transactional
+	def cobrarOrden(OrdenDeTrabajo ordenDeTrabajoInstance) {
+		session.setAttribute("ordenSeleccionada", ordenDeTrabajoInstance)
+		redirect controller: 'cobro', action:'create'
+	}
 
-        if (ordenDeTrabajoInstance.hasErrors()) {
-            respond ordenDeTrabajoInstance.errors, view:'edit'
-            return
-        }
 
-        ordenDeTrabajoInstance.save flush:true
+	@Transactional
+	def update(OrdenDeTrabajo ordenDeTrabajoInstance) {
+		if (ordenDeTrabajoInstance == null) {
+			notFound()
+			return
+		}
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'OrdenDeTrabajo.label', default: 'OrdenDeTrabajo'), ordenDeTrabajoInstance.id])
-                redirect ordenDeTrabajoInstance
-            }
-            '*'{ respond ordenDeTrabajoInstance, [status: OK] }
-        }
-    }
+		if (ordenDeTrabajoInstance.hasErrors()) {
+			respond ordenDeTrabajoInstance.errors, view:'edit'
+			return
+		}
 
-    @Transactional
-    def delete(OrdenDeTrabajo ordenDeTrabajoInstance) {
+		ordenDeTrabajoInstance.save flush:true
 
-        if (ordenDeTrabajoInstance == null) {
-            notFound()
-            return
-        }
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.updated.message', args: [message(code: 'OrdenDeTrabajo.label', default: 'OrdenDeTrabajo'), ordenDeTrabajoInstance.id])
+				redirect ordenDeTrabajoInstance
+			}
+			'*'{ respond ordenDeTrabajoInstance, [status: OK] }
+		}
+	}
 
-        ordenDeTrabajoInstance.delete flush:true
+	@Transactional
+	def delete(OrdenDeTrabajo ordenDeTrabajoInstance) {
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'OrdenDeTrabajo.label', default: 'OrdenDeTrabajo'), ordenDeTrabajoInstance.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
-    }
+		if (ordenDeTrabajoInstance == null) {
+			notFound()
+			return
+		}
 
-    protected void notFound() {
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'ordenDeTrabajo.label', default: 'OrdenDeTrabajo'), params.id])
-                redirect action: "index", method: "GET"
-            }
-            '*'{ render status: NOT_FOUND }
-        }
-    }
+		ordenDeTrabajoInstance.delete flush:true
+
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.deleted.message', args: [message(code: 'OrdenDeTrabajo.label', default: 'OrdenDeTrabajo'), ordenDeTrabajoInstance.id])
+				redirect action:"index", method:"GET"
+			}
+			'*'{ render status: NO_CONTENT }
+		}
+	}
+
+	protected void notFound() {
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.not.found.message', args: [message(code: 'ordenDeTrabajo.label', default: 'OrdenDeTrabajo'), params.id])
+				redirect action: "index", method: "GET"
+			}
+			'*'{ render status: NOT_FOUND }
+		}
+	}
 }

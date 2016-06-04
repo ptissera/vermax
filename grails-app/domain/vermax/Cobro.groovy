@@ -7,19 +7,14 @@ class Cobro {
 	static belongsTo = [ordenDeTrabajo:OrdenDeTrabajo]
 	Date fechaHora
 	Double monto
-	String descripcion
 	
 	static constraints = {
-		fechaHora blank: false
+		fechaHora blank: true, nullable: true
 		monto blank: false
-		descripcion nullable: true
 	}
 	
-	@Override String toString() {
-		if(getFechaHora()==null){
-			fechaHora=new Date()
-		}
-		return getFechaHora().format("dd/MM/YYYY")
+	def beforeInsert = {
+		fechaHora = new Date()
 	}
 
    

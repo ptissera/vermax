@@ -30,7 +30,9 @@
 					
 						<th><g:message code="ordenDeTrabajo.cliente.label" default="Cliente" /></th>
 					
+						<g:sortableColumn property="fechaCreacion" title="${message(code: 'ordenDeTrabajo.fechaInicio.label', default: 'Fecha Creacion')}" />
 						<g:sortableColumn property="fechaInicio" title="${message(code: 'ordenDeTrabajo.fechaInicio.label', default: 'Fecha Inicio')}" />
+						<g:sortableColumn property="fechaCompletado" title="${message(code: 'ordenDeTrabajo.fechaInicio.label', default: 'Fecha Completado')}" />
 					
 					</tr>
 				</thead>
@@ -44,7 +46,9 @@
 					
 						<td>${fieldValue(bean: ordenDeTrabajoInstance, field: "cliente")}</td>
 					
+						<td><g:formatDate format="dd/MM/yyyy" date="${ordenDeTrabajoInstance.fechaCreacion}" /></td>
 						<td><g:formatDate format="dd/MM/yyyy" date="${ordenDeTrabajoInstance.fechaInicio}" /></td>
+						<td><g:formatDate format="dd/MM/yyyy" date="${ordenDeTrabajoInstance.fechaCompletado}" /></td>
 					
 					</tr>
 				</g:each>

@@ -54,7 +54,7 @@
 				<li class="fieldcontain">
 					<span id="fechaDeNacimiento-label" class="property-label"><g:message code="cliente.fechaDeNacimiento.label" default="Fecha De Nacimiento" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaDeNacimiento-label"><g:formatDate date="${clienteInstance?.fechaDeNacimiento}" /></span>
+						<span class="property-value" aria-labelledby="fechaDeNacimiento-label"><g:formatDate format="dd/MM/yyyy" date="${clienteInstance?.fechaDeNacimiento}" /></span>
 					
 				</li>
 				</g:if>
@@ -99,7 +99,7 @@
 				<li class="fieldcontain">
 					<span id="barrio-label" class="property-label"><g:message code="cliente.barrio.label" default="Barrio" /></span>
 					
-						<span class="property-value" aria-labelledby="barrio-label"><g:link controller="barrio" action="show" id="${clienteInstance?.barrio?.id}">${clienteInstance?.barrio?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="barrio-label">${clienteInstance?.barrio?.encodeAsHTML()}</span>
 					
 				</li>
 				</g:if>

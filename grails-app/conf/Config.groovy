@@ -41,6 +41,7 @@ grails.views.default.codec = "html"
 // If unspecified, controllers are prototype scoped.
 grails.controllers.defaultScope = 'singleton'
 
+
 // GSP settings
 grails {
     views {
@@ -55,7 +56,7 @@ grails {
             }
         }
         // escapes all not-encoded output at final stage of outputting
-         filteringCodecForContentType.'text/html' = 'html'
+        filteringCodecForContentType.'text/html' = 'html'
     }
 }
 
@@ -91,9 +92,9 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
     }
 }
+
 
 // log4j configuration
 log4j.main = {

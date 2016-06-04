@@ -47,7 +47,7 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: clienteInstance, field: 'numeracion', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: clienteInstance, field: 'numeracion', 'error')}">
 	<label for="numeracion">
 		<g:message code="cliente.numeracion.label" default="Numeracion" />
 		<span class="required-indicator">*</span>
@@ -56,7 +56,7 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: clienteInstance, field: 'piso', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: clienteInstance, field: 'piso', 'error')}">
 	<label for="piso">
 		<g:message code="cliente.piso.label" default="Piso" />
 		<span class="required-indicator">*</span>
@@ -65,7 +65,7 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: clienteInstance, field: 'dpto', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: clienteInstance, field: 'dpto', 'error')}">
 	<label for="dpto">
 		<g:message code="cliente.dpto.label" default="Dpto" />
 		<span class="required-indicator">*</span>

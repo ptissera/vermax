@@ -49,21 +49,22 @@ body {
 
 #grailsLogo {
 	background-color: #3498DB;
-	padding: 10px 20px 10px 120px;
-	height: 100px;
+	padding: 10px 20px 0px 120px;
+	height: 70px;
 }
 
 #grailsLogo	> h1 {
 	float: right;
-	padding-top: 50px;
+	padding-top: 20px;
 	color: #EAF2F8;
-	font-size: 60px;
+	font-size: 40px;
 	margin: 0;
 }
 		
 #grailsLogo	> img {
 	float: right;
-	height: 150px;
+	height: 70px;
+	z-index: 9901;
 }
 
 /* replace with .no-boxshadow body if you have modernizr available */
@@ -650,10 +651,10 @@ a.skip {
 #login a:link,#login a:visited,#login a:hover, 
 .buttons a:link,.buttons a:visited,.buttons a:hover,
 .buttons input[type=submit], .nav a, .filtrarPor fieldset input{
-	color:rgba(255,153,51,1) !important;
+	color: gray !important;
 	margin-right: 20px; 
 	background-color:transparent !important;;
-    border: 2px solid rgba(255,153,51,0.6) !important;
+    border: 2px solid lightgray !important;
 	padding: 2px 10px 2px 10px !important;
     text-decoration: none;
     -moz-border-radius: 0.7em !important;
@@ -668,12 +669,25 @@ a.skip {
 .buttons input:hover,.buttons input:active,
 .nav a:focus, .nav a:hover, .filtrarPor fieldset input:hover{
     outline: none; /* prevents outline in webkit on active links but retains it for tab focus */
-    border: 2px solid rgba(255,204,51,0.8);
-    color: rgba(255,204,51,1) !important;
-	background-color:rgba(0,153,255,0.2);
+    border: 2px solid #3498DB;
+    color: #3498DB !important;
     text-decoration: none;
-    font-style: italic;
-	-moz-box-shadow: 0 0 0.5em rgba(255,153,0,0.6) !important;
-	-webkit-box-shadow: 0 0 0.5em rgba(255,153,0,0.6) !important;
-	    box-shadow: 0 0 0.5em rgba(255,153,0,0.6) !important;
+	-moz-box-shadow: 0 0 0.5em #3498DB !important;
+	-webkit-box-shadow: 0 0 0.5em #3498DB !important;
+	    box-shadow: 0 0 0.5em r#3498DB !important;
 }
+
+
+#wrapper{
+		
+		background: rgba(255,255,255,0.8);
+	    color: #333333;
+    	margin: 0 auto;
+		margin-bottom: 110px !important;
+    overflow-x: hidden; /* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
+    -moz-box-shadow: 0 0 1em 0.2em rgba(0,0,0,0.8);
+    -webkit-box-shadow: 0 0 1em 0.2em rgba(0,0,0,0.8);
+    box-shadow: 0 0 1em 0.2em rgba(0,0,0,0.8);
+	border: 1px solid rgba(0,0,0,0.6);
+
+	}

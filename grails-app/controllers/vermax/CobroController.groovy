@@ -20,7 +20,12 @@ class CobroController {
     }
 
     def create() {
-        respond new Cobro(params)
+		Cobro cobro = new Cobro(params)
+		cobro.fechaHora = new Date()
+		cobro.ordenDeTrabajo = session.getAttribute("ordenSeleccionada")
+		cobro.ordenDeTrabajo = OrdenDeTrabajo.findById(cobro.ordenDeTrabajo.id)
+		cobro.monto = cobro.ordenDeTrabajo.getTotal()
+        respond cobro
     }
 
     @Transactional

@@ -13,7 +13,6 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
 		<div id="show-cobro" class="content scaffold-show" role="main">
@@ -27,7 +26,19 @@
 				<li class="fieldcontain">
 					<span id="fechaHora-label" class="property-label"><g:message code="cobro.fechaHora.label" default="Fecha Hora" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaHora-label"><g:formatDate date="${cobroInstance?.fechaHora}" /></span>
+						<span class="property-value" aria-labelledby="fechaHora-label"><g:formatDate format="dd/MM/yyyy - hh:mm" date="${cobroInstance?.fechaHora}" /></span>
+					
+				</li>
+				<li class="fieldcontain">
+					<span id="fechaHora-label" class="property-label"><g:message code="cobro.fechaHora.label" default="Orden de Trabajo Nro" /></span>
+					
+						<span class="property-value" aria-labelledby="fechaHora-label">${cobroInstance?.ordenDeTrabajo.id}</span>
+					
+				</li>
+				<li class="fieldcontain">
+					<span id="fechaHora-label" class="property-label"><g:message code="cobro.fechaHora.label" default="Cliente" /></span>
+					
+						<span class="property-value" aria-labelledby="fechaHora-label">${cobroInstance?.ordenDeTrabajo.cliente}</span>
 					
 				</li>
 				</g:if>
@@ -41,28 +52,55 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${cobroInstance?.descripcion}">
-				<li class="fieldcontain">
-					<span id="descripcion-label" class="property-label"><g:message code="cobro.descripcion.label" default="Descripcion" /></span>
-					
-						<span class="property-value" aria-labelledby="descripcion-label"><g:fieldValue bean="${cobroInstance}" field="descripcion"/></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${cobroInstance?.ordenDeTrabajo}">
-				<li class="fieldcontain">
-					<span id="ordenDeTrabajo-label" class="property-label"><g:message code="cobro.ordenDeTrabajo.label" default="Orden De Trabajo" /></span>
-					
-						<span class="property-value" aria-labelledby="ordenDeTrabajo-label"><g:link controller="ordenDeTrabajo" action="show" id="${cobroInstance?.ordenDeTrabajo?.id}">${cobroInstance?.ordenDeTrabajo?.encodeAsHTML()}</g:link></span>
-					
-				</li>
+				<li class="fieldcontain"><span id="detalle-label"
+					class="property-label"><g:message
+							code="ordenDeTrabajo.detalle.label" default="Detalle" /></span>
+					<table>
+						<thead>
+							<tr>
+								<th>Servicio</th>
+								<th>Cantidad</th>
+								<th>Lavado</th>
+								<th>Secado</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<g:each in="${cobroInstance?.ordenDeTrabajo.detalles}" status="i"
+								var="detalle">
+								<tr>
+									<td>
+										${detalle?.servicio.nombre}
+									</td>
+
+									<td>
+										${detalle?.cantidad}
+									</td>
+
+									<td><g:checkBox name="lavado" value="${detalle?.lavado}"
+											disabled="true" readonly="true" /></td>
+
+									<td><g:checkBox name="secado" value="${detalle?.secado}"
+											disabled="true" readonly="true" /></td>
+
+									<td><span class="totalDetalle">$ ${detalle?.getTotal()}</span></td>
+
+								</tr>
+							</g:each>
+						</tbody>
+						<tfoot>
+							<tr>
+								<th colspan="4"></th>
+								<th><span class="totalOrden">$ ${cobroInstance?.ordenDeTrabajo.getTotal()}</span></th>
+							</tr>
+						</tfoot>
+					</table></li>
 				</g:if>
 			
 			</ol>
 			<g:form url="[resource:cobroInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
-					<g:link class="edit" action="edit" resource="${cobroInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>

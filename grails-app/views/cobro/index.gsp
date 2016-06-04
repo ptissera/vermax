@@ -39,9 +39,6 @@
 					<g:sortableColumn property="monto"
 						title="${message(code: 'cobro.monto.label', default: 'Monto')}" />
 
-					<g:sortableColumn property="descripcion"
-						title="${message(code: 'cobro.descripcion.label', default: 'Descripcion')}" />
-
 					<th><g:message code="cobro.ordenDeTrabajo.label"
 							default="Orden De Trabajo" /></th>
 
@@ -57,10 +54,6 @@
 
 						<td>
 							${fieldValue(bean: cobroInstance, field: "monto")}
-						</td>
-
-						<td>
-							${fieldValue(bean: cobroInstance, field: "descripcion")}
 						</td>
 
 						<td>

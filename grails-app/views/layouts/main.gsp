@@ -17,7 +17,11 @@
 		<g:layoutHead/>
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>
+		<div id="grailsLogo" role="banner">
+		<asset:image src="grails_logo.png" alt="Grails"/>
+		<h1>Vermax</h1>
+		<pulko:loginControl/>
+		</div>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>

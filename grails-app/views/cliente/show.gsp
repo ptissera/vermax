@@ -59,11 +59,47 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${clienteInstance?.domicilio}">
+				<g:if test="${clienteInstance?.calle}">
 				<li class="fieldcontain">
-					<span id="domicilio-label" class="property-label"><g:message code="cliente.domicilio.label" default="Domicilio" /></span>
+					<span id="calle-label" class="property-label"><g:message code="cliente.calle.label" default="Calle" /></span>
 					
-						<span class="property-value" aria-labelledby="domicilio-label"><g:fieldValue bean="${clienteInstance}" field="domicilio"/></span>
+						<span class="property-value" aria-labelledby="calle-label"><g:fieldValue bean="${clienteInstance}" field="calle"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${clienteInstance?.numeracion}">
+				<li class="fieldcontain">
+					<span id="numeracion-label" class="property-label"><g:message code="cliente.numeracion.label" default="Numeracion" /></span>
+					
+						<span class="property-value" aria-labelledby="numeracion-label"><g:fieldValue bean="${clienteInstance}" field="numeracion"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${clienteInstance?.piso}">
+				<li class="fieldcontain">
+					<span id="piso-label" class="property-label"><g:message code="cliente.piso.label" default="Piso" /></span>
+					
+						<span class="property-value" aria-labelledby="piso-label"><g:fieldValue bean="${clienteInstance}" field="piso"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${clienteInstance?.dpto}">
+				<li class="fieldcontain">
+					<span id="dpto-label" class="property-label"><g:message code="cliente.dpto.label" default="Dpto" /></span>
+					
+						<span class="property-value" aria-labelledby="dpto-label"><g:fieldValue bean="${clienteInstance}" field="dpto"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${clienteInstance?.barrio}">
+				<li class="fieldcontain">
+					<span id="barrio-label" class="property-label"><g:message code="cliente.barrio.label" default="Barrio" /></span>
+					
+						<span class="property-value" aria-labelledby="barrio-label"><g:link controller="barrio" action="show" id="${clienteInstance?.barrio?.id}">${clienteInstance?.barrio?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -100,15 +136,6 @@
 					<span id="sexo-label" class="property-label"><g:message code="cliente.sexo.label" default="Sexo" /></span>
 					
 						<span class="property-value" aria-labelledby="sexo-label"><g:fieldValue bean="${clienteInstance}" field="sexo"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${clienteInstance?.fechaDeAlta}">
-				<li class="fieldcontain">
-					<span id="fechaDeAlta-label" class="property-label"><g:message code="cliente.fechaDeAlta.label" default="Fecha De Alta" /></span>
-					
-						<span class="property-value" aria-labelledby="fechaDeAlta-label"><g:formatDate date="${clienteInstance?.fechaDeAlta}" /></span>
 					
 				</li>
 				</g:if>

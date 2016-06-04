@@ -33,6 +33,11 @@
 				${flash.message}
 			</div>
 		</g:if>
+		<g:if test="${ordenDeTrabajoInstance.pagado}">
+			<div class="ordenPagada">
+				<g:img file="pagado.png" />
+			</div>
+		</g:if>
 		<ol class="property-list ordenDeTrabajo">
 
 			<li class="fieldcontain"><span id="estado-label"
@@ -71,9 +76,8 @@
 							code="ordenDeTrabajo.fechaInicio.label" default="Fecha Inicio" /></span>
 
 					<span class="property-value" aria-labelledby="fechaInicio-label"><g:formatDate
-							format="dd/MM/yyyy - hh:mm" date="${ordenDeTrabajoInstance?.fechaInicio}" /></span>
-
-				</li>
+							format="dd/MM/yyyy - hh:mm"
+							date="${ordenDeTrabajoInstance?.fechaInicio}" /></span></li>
 			</g:if>
 
 			<g:if test="${ordenDeTrabajoInstance?.fechaCompletado}">
@@ -163,32 +167,40 @@
 		</ol>
 		<g:form url="[resource:ordenDeTrabajoInstance, action:'delete']"
 			method="DELETE">
-				<fieldset class="buttons">
-					<g:if
-						test="${ordenDeTrabajoInstance?.estado == EstadosDeLaOrden.Creado}">
-						<g:link class="edit" action="iniciarLavado"
-							resource="${ordenDeTrabajoInstance}">Iniciar</g:link>
-						<g:actionSubmit class="delete" action="delete"
-							value="${message(code: 'default.button.delete.label', default: 'Delete')}"
-							onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-					</g:if>
-					<g:if
-						test="${ordenDeTrabajoInstance?.estado == EstadosDeLaOrden.Iniciado}">
-						<g:link class="edit" action="completarLavado"
-							resource="${ordenDeTrabajoInstance}">Completado</g:link>
+			<fieldset class="buttons">
+				<g:if
+					test="${ordenDeTrabajoInstance?.estado == EstadosDeLaOrden.Creado}">
+					<g:link class="edit" action="iniciarLavado"
+						resource="${ordenDeTrabajoInstance}">Iniciar</g:link>
+						<g:if test="${ordenDeTrabajoInstance.pagado == false}">
+					<g:actionSubmit class="delete" action="delete"
+						value="${message(code: 'default.button.delete.label', default: 'Delete')}"
+						onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+				</g:if>		
+				</g:if>
+				<g:if
+					test="${ordenDeTrabajoInstance?.estado == EstadosDeLaOrden.Iniciado}">
+					<g:link class="edit" action="completarLavado"
+						resource="${ordenDeTrabajoInstance}">Completado</g:link>
+					<g:if test="${ordenDeTrabajoInstance.pagado == false}">
 						<g:link class="edit" action="cancelarLavado"
 							resource="${ordenDeTrabajoInstance}">Cancelar Orden</g:link>
 					</g:if>
-					<g:if
-						test="${ordenDeTrabajoInstance?.estado == EstadosDeLaOrden.Completo}">
-						<g:link class="edit" action="entregarLavado"
-							resource="${ordenDeTrabajoInstance}">Entregado</g:link>
+				</g:if>
+				<g:if
+					test="${ordenDeTrabajoInstance?.estado == EstadosDeLaOrden.Completo}">
+					<g:link class="edit" action="entregarLavado"
+						resource="${ordenDeTrabajoInstance}">Entregado</g:link>
+					<g:if test="${ordenDeTrabajoInstance.pagado == false}">
 						<g:link class="edit" action="cancelarLavado"
 							resource="${ordenDeTrabajoInstance}">Cancelar Orden</g:link>
 					</g:if>
+				</g:if>
+				<g:if test="${ordenDeTrabajoInstance.pagado == false}">
 					<g:link class="edit" action="cobrarOrden"
-							resource="${ordenDeTrabajoInstance}">Cobrar</g:link>
-				</fieldset>
+						resource="${ordenDeTrabajoInstance}">Cobrar</g:link>
+				</g:if>
+			</fieldset>
 		</g:form>
 	</div>
 </body>

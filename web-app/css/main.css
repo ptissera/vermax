@@ -691,3 +691,8 @@ a.skip {
 	border: 1px solid rgba(0,0,0,0.6);
 
 	}
+.ordenPagada {
+	position: absolute;
+	width: 100%;
+	padding-left: 500px;
+}

@@ -40,15 +40,12 @@ class CobroController {
             return
         }
 
+		OrdenDeTrabajo ordenDeTrabajo = OrdenDeTrabajo.findById(cobroInstance.ordenDeTrabajo.id)
+		ordenDeTrabajo.pagado = true
+		ordenDeTrabajo.save flush:true
         cobroInstance.save flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'cobro.label', default: 'Cobro'), cobroInstance.id])
-                redirect cobroInstance
-            }
-            '*' { respond cobroInstance, [status: CREATED] }
-        }
+        redirect(controller: 'ordenDeTrabajo', action:'index')
     }
 
     def edit(Cobro cobroInstance) {

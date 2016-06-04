@@ -1,4 +1,5 @@
 import vermax.Barrio
+import vermax.Cliente
 import vermax.Rol
 import vermax.TipoServicio
 import vermax.Usuario
@@ -7,6 +8,8 @@ class BootStrap {
 
 	def init = { servletContext ->
 		initRolesAndUsers()
+		
+		initClientes()
 
 		createBarrio("Los Platanos")
 		createBarrio("Los Naranjos")
@@ -51,6 +54,14 @@ class BootStrap {
 					fran.save flush: true
 				}
 			}
+	
+	def initClientes() {
+		def cliente = Cliente.findByDNI('93332772')
+		if (!cliente) {
+			cliente = new Cliente(nombre: 'Pablo', apellido: 'Tissera', dNI: '93332772', sexo: 'M')
+			cliente.save flush: true
+		}
+	}
 
 	def createRol(nombre, descripcion) {
 		def rol = Rol.findByNombre(nombre)

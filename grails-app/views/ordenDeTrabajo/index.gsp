@@ -33,6 +33,7 @@
 						<g:sortableColumn property="fechaCreacion" title="${message(code: 'ordenDeTrabajo.fechaInicio.label', default: 'Fecha Creacion')}" />
 						<g:sortableColumn property="fechaInicio" title="${message(code: 'ordenDeTrabajo.fechaInicio.label', default: 'Fecha Inicio')}" />
 						<g:sortableColumn property="fechaCompletado" title="${message(code: 'ordenDeTrabajo.fechaInicio.label', default: 'Fecha Completado')}" />
+						<g:sortableColumn property="fechaCompletado" title="${message(code: 'ordenDeTrabajo.fechaInicio.label', default: 'Pagado')}" />
 					
 					</tr>
 				</thead>
@@ -49,7 +50,8 @@
 						<td><g:formatDate format="dd/MM/yyyy" date="${ordenDeTrabajoInstance.fechaCreacion}" /></td>
 						<td><g:formatDate format="dd/MM/yyyy" date="${ordenDeTrabajoInstance.fechaInicio}" /></td>
 						<td><g:formatDate format="dd/MM/yyyy" date="${ordenDeTrabajoInstance.fechaCompletado}" /></td>
-					
+						<td><g:checkBox name="pagado" value="${ordenDeTrabajoInstance.pagado}"
+											disabled="true" readonly="true" /></td>
 					</tr>
 				</g:each>
 				</tbody>

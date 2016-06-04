@@ -13,6 +13,7 @@ class OrdenDeTrabajo {
 	Date fechaCancelado
 	String observaciones
 	EstadosDeLaOrden estado
+	boolean pagado
 
 	static mapping = { detalles cascade:"all-delete-orphan" }
 
@@ -30,10 +31,12 @@ class OrdenDeTrabajo {
 		fechaCompletado nullable:true,  blank: true
 		fechaEntrega nullable:true,  blank: true
 		fechaCancelado nullable:true,  blank: true
+		pagado nullable:true,  blank: true
 	}
 	
 	def beforeInsert = { 
 		fechaCreacion = new Date() 
+		pagado = false
 		estado = EstadosDeLaOrden.Creado
 	}
 	

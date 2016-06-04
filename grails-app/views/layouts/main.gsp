@@ -20,6 +20,7 @@
 		<div id="grailsLogo" role="banner">
 		<asset:image src="grails_logo.png" alt="Grails"/>
 		<h1>Vermax</h1>
+		<pulko:loginControl/>
 		</div>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>

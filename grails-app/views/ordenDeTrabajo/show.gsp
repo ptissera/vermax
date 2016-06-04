@@ -23,6 +23,12 @@
 			</g:if>
 			<ol class="property-list ordenDeTrabajo">
 			
+			<li class="fieldcontain">
+					<span id="estado-label" class="property-label">Nro</span>
+					
+						<span class="property-value" aria-labelledby="estado-label"><g:fieldValue bean="${ordenDeTrabajoInstance}" field="id"/></span>
+					
+				</li>
 				<g:if test="${ordenDeTrabajoInstance?.estado}">
 				<li class="fieldcontain">
 					<span id="estado-label" class="property-label"><g:message code="ordenDeTrabajo.estado.label" default="Estado" /></span>

@@ -1,5 +1,6 @@
 import vermax.Barrio
 import vermax.Cliente
+import vermax.Equipo
 import vermax.Rol
 import vermax.TipoServicio
 import vermax.Usuario
@@ -14,10 +15,17 @@ class BootStrap {
 		createBarrio("Los Platanos")
 		createBarrio("Los Naranjos")
 		createBarrio("Matienso")
+		createBarrio("El Trebol")
 		
 		createTipoServicio("Canasto", 50, 25)
 		createTipoServicio("Acolchado 1 pz", 70, 25)
 		createTipoServicio("Acolchado 2 pz", 100, 40)
+		createTipoServicio("Par Zapatilla", 75, 40)
+		
+		createEquipo("0231","Aurora","Titan",true,30)
+		createEquipo("0233","Aurora","Titan",true,30)
+		createEquipo("0244","Wirpool","Dry",false,20)
+		createEquipo("0245","Wirpool","Dry",false,20)
 	}
 	
 	def initRolesAndUsers() {
@@ -58,8 +66,32 @@ class BootStrap {
 	def initClientes() {
 		def cliente = Cliente.findByDNI('93332772')
 		if (!cliente) {
-			cliente = new Cliente(nombre: 'Pablo', apellido: 'Tissera', dNI: '93332772', sexo: 'M')
+			cliente = new Cliente(nombre: 'Francisco', apellido: 'Tissera', dNI: '93332772', sexo: 'M')
 			cliente.save flush: true
+		}
+		def cliente2 = Cliente.findByDNI('8720133')
+		if (!cliente2) {
+			cliente2 = new Cliente(nombre: 'Luis', apellido: 'Leyes', dNI: '8720133', sexo: 'M')
+			cliente2.save flush: true
+		}
+		def cliente3 = Cliente.findByDNI('42917308')
+		if (!cliente3) {
+			cliente3 = new Cliente(nombre: 'Rafael', apellido: 'Rios', dNI: '42917308', sexo: 'M')
+			cliente3.save flush: true
+		}
+		def cliente4 = Cliente.findByDNI('32856147')
+		if (!cliente4) {
+			cliente4 = new Cliente(nombre: 'Sofia', apellido: 'Perez', dNI: '32856147', sexo: 'F')
+			cliente4.save flush: true
+		}
+		
+	}
+	
+	def createEquipo(codigo, marca, modelo, esLavadora, duracionCiclo){
+		def equipo = Equipo.findByCodigo(codigo)
+		if(!equipo){
+			equipo= new Equipo(codigo: codigo, marca:marca, modelo: modelo, esLavadora:esLavadora, duracionCiclo:duracionCiclo)
+			equipo.save()
 		}
 	}
 

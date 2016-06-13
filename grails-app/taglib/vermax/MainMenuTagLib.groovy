@@ -11,13 +11,9 @@ class MainMenuTagLib {
 	
 	def menu = { attrs, body ->
 		if(session.usuario){
-			if(session.usuario.isSuperUser()){
-				buildingMenuSuperUser()
-			} else if(session.usuario.isAdminUser()){
-				buildingMenuAdminUser()
-			}
+		buildingMenuSuperUser()
+		}	
 		}
-	}
 	
 	def buildingMenuSuperUser(){
 		startMenu()
@@ -25,33 +21,23 @@ class MainMenuTagLib {
 		buildingItemMenu([tittle: "Inicio", url: "/"])
 		buildingItemMenu([tittle: "Administracion", submenu: [[
 			[tittle: "Usuarios", action: "index", controller:"usuario"],
-			[tittle: "Socios", action: "index", controller:"socio"],
-			[tittle: "Perfiles", action: "index", controller:"perfil"]
+			[tittle: "Cliente", action: "index", controller:"cliente"]
 			],[
 			[tittle: "Roles", action: "index", controller:"rol"],
-			[tittle: "Asistencias", action: "index", controller:"asistencia"],
-			[tittle: "Perfil de socio", action: "index", controller:"perfilDeSocio"]
+			[tittle: "Equipos", action: "index", controller:"equipo"],
+			[tittle: "Servicios", action: "index", controller:"tipoServicio"],
+			[tittle: "Rubros", action: "index", controller:"rubro"]
 			]]])
 		buildingItemMenu([tittle: "Finanzas", submenu: [[
-			[tittle: "Cobros Por Mes", action: "index", controller:"cobro"],
-			[tittle: "Cobros Por Dia", action: "index", controller:"cobroPorDia"],
-			[tittle: "Movimientos Contables", action: "index", controller:"movimientoContable"]
+			[tittle: "Ingresos", action: "index", controller:"cobro"],
+			[tittle: "Gastos", action: "index", controller:"egreso"]
 			],[
 			[tittle: "Rubros", action: "index", controller:"rubro"],
 			[tittle: "Sub Rubros", action: "index", controller:"subRubro"]
 			]]])
 		buildingItemMenu([tittle: "Reportes", submenu: [[
-			[tittle: "Cobros por mes", action: "index", controller:"reporteCobrosPorMes"],
-			[tittle: "Listado de socios morosos", action: "index", controller:"reporteSociosMorosos"],
-			[tittle: "Reporte Movimientos Contables", action: "index", controller:"reporteMovimientosContables"],
-			[tittle: "Reporte Asistencias", action: "index", controller:"reporteAsistencias"]
-			]]])
-		buildingItemMenu([tittle: "Herramientas", submenu: [[
-			[tittle: "Carga masiva", action: "upload", controller:"cargarDeSociosDesdeExcel"],
-			[tittle: "Carga masiva menores", action: "upload", controller:"cargarDeSociosMenoresDesdeExcel"]
-			],[
-			[tittle: "Exportar Socios", action: "report", controller:"exportarSociosAExcel"],
-			[tittle: "Exportar Socios Menores", action: "report", controller:"exportarSociosMenoresAExcel"]
+			[tittle: "Cobros por mes", action: "index", controller:"reportesCobrosXPeriodo"],
+			[tittle: "Ganancia", action: "index", controller:"reportesGanancias"]
 			]]])
 		endMainMenu()
 		subMenuContent.each { submenucontent ->
@@ -59,19 +45,7 @@ class MainMenuTagLib {
 		}
 		endMenu()
 	}
-	
-	def buildingMenuAdminUser(){
-		startMenu()
-		startMainMenu()
-		buildingItemMenu([tittle: "Inicio", url: "/"])
-		buildingItemMenu([tittle: "Socios", action: "index", controller:"socio"])			
-		buildingItemMenu([tittle: "Asistencias", action: "index", controller:"asistencia"])
-		buildingItemMenu([tittle: "Cobros Pale", action: "index", controller:"cobro"])
-		buildingItemMenu([tittle: "Cobros Por Dia", action: "index", controller:"cobroPorDia"])
-		
-		endMainMenu()		
-		endMenu()
-	}
+
 
 	def startMenu() {
 		out << "<nav>"

@@ -18,14 +18,12 @@
 </head>
 <body>
 	<g:javascript library="jquery" plugin="jquery" />
-	
-	<div id="grailsLogo" role="banner">
-		<g:img file="grails_logo.png"/>
-		<h1>Vermax</h1>
-		
-		</div>
-		<header>
-	<pulko:loginControl/>
+<jqui:resources/>
+	<g:javascript library="application" />
+	<header>
+		<div id="logo"></div>
+		<pulko:loginControl/>
+		<pulko:menu/>
 	</header>
 	<div id="wrapper">
 		<g:layoutBody />

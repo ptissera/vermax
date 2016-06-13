@@ -4,6 +4,7 @@ package vermax
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+
 import org.apache.catalina.core.ApplicationHttpRequest
 
 @Transactional(readOnly = true)
@@ -12,15 +13,58 @@ class OrdenDeTrabajoController {
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
 	def index(Integer max) {
-		params.max = Math.min(max ?: 10, 100)
-		respond OrdenDeTrabajo.list(params), model:[ordenDeTrabajoInstanceCount: OrdenDeTrabajo.count()]
-	}
-
+		def selector = []
+		
+		if (params.ordenesIniciadas == 'on') {
+			selector << EstadosDeLaOrden.Iniciado
+			flash.ordenesIniciadas = true
+		} 
+		if (params.ordenesCreadas == 'on') {
+			selector << EstadosDeLaOrden.Creado
+			flash.ordenesCreadas = true
+		}
+		if (params.ordenesCompletado == 'on') {
+			selector << EstadosDeLaOrden.Completo
+			flash.ordenesCompletado = true
+		}
+		if (params.ordenesEntregado == 'on') {
+			selector << EstadosDeLaOrden.Entregado
+			flash.ordenesEntregado = true
+		}
+		if (params.ordenesCancelado == 'on') {
+			selector << EstadosDeLaOrden.Cancelado
+			flash.ordenesCancelado = true
+		}
+		def result
+		if (selector.size() == 1) {
+			result = OrdenDeTrabajo.findAllByEstado(selector[0])
+		} else if (selector.size() == 2) {
+			result = OrdenDeTrabajo.findAllByEstadoOrEstado(selector[0], selector[1])
+		} else if (selector.size() == 3) {
+			result = OrdenDeTrabajo.findAllByEstadoOrEstado(selector[0], selector[1], selector[2])
+		} else if (selector.size() == 4) {
+			result = OrdenDeTrabajo.findAllByEstadoOrEstado(selector[0], selector[1], selector[2], selector[3])
+		} else if (selector.size() == 5) {
+			result = OrdenDeTrabajo.findAllByEstadoOrEstado(selector[0], selector[1], selector[2], selector[3], selector[4])
+		} else {
+			result = OrdenDeTrabajo.list()
+			flash.ordenesIniciadas = true
+			flash.ordenesCreadas = true
+			flash.ordenesCompletado = true
+			flash.ordenesEntregado = true
+			flash.ordenesCancelado = true
+		} 
+		
+        respond result
+}	
+	
+	
 	def show(OrdenDeTrabajo ordenDeTrabajoInstance) {
 		respond ordenDeTrabajoInstance
 	}
 
 	def create() {
+					flash.demora = (OrdenDeTrabajoHelper.getDemora()).diasDeEspera
 		respond new OrdenDeTrabajo(params)
 	}
 
@@ -32,6 +76,7 @@ class OrdenDeTrabajoController {
 		}
 
 		if (ordenDeTrabajoInstance.hasErrors()) {
+			flash.demora = (OrdenDeTrabajoHelper.getDemora()).diasDeEspera
 			respond ordenDeTrabajoInstance.errors, view:'create'
 			return
 		}

@@ -1,15 +1,25 @@
 <%@ page import="vermax.OrdenDeTrabajo"%>
 
 <div
+	class="fieldcontain ${hasErrors(bean: ordenDeTrabajoInstance, field: 'observaciones', 'error')} ">
+	<label for="observaciones"> Demora en dias habiles
+
+	</label>
+	<span>${flash.demora }</span>
+
+</div>
+<div
 	class="fieldcontain ${hasErrors(bean: ordenDeTrabajoInstance, field: 'cliente', 'error')} required">
 	<label for="cliente"> <g:message
 			code="ordenDeTrabajo.cliente.label" default="Cliente" /> <span
 		class="required-indicator">*</span>
 	</label>
+	
+	<input type="text" name="search" id="search">
 	<g:select id="cliente" name="cliente.id"
 		from="${vermax.Cliente.list()}" optionKey="id" required=""
 		value="${ordenDeTrabajoInstance?.cliente?.id}" class="many-to-one" />
-
+<g:link class="create" action="create" controller="cliente" params="[regresarAOrden: 'yes']">Agregar Cliente</g:link>
 </div>
 
 <div
@@ -41,4 +51,33 @@
 
 </div>
 
+<script>
+	jQuery.fn.filterByText = function(textbox) {
+	    return this.each(function() {
+	        var select = this;
+	        var options = [];
+	        $(select).find('option').each(function() {
+	            options.push({value: $(this).val(), text: $(this).text()});
+	        });
+	        $(select).data('options', options);
 
+	        $(textbox).bind('change keyup', function() {
+	            var options = $(select).empty().data('options');
+	            var search = $.trim($(this).val());
+	            var regex = new RegExp(search,"gi");
+
+	            $.each(options, function(i) {
+	                var option = options[i];
+	                if(option.text.match(regex) !== null) {
+	                    $(select).append(
+	                        $('<option>').text(option.text).val(option.value)
+	                    );
+	                }
+	            });
+	        });
+	    });
+	};
+$(function() {
+    $('#cliente').filterByText($('#search'));
+});
+</script>

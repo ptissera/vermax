@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="vermax.OrdenDeTrabajoHelper"%>
 <html>
 <head>
 <meta name="layout" content="main" />
@@ -81,21 +82,47 @@ p {
 </head>
 <body>
 	<div id="page-body" role="main">
-
+	<g:set var="indicadores" value="${OrdenDeTrabajoHelper.getDemora()}"/>
+		<table style="width: 500px; margin-left: 200px;">
+			<thead>
+					<tr>
+						<th>Indicador</th>
+						<th>Valor</th>						
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="even">					
+						<td>Demora aproximada actual para una nueva orden:</td>
+						<td>${indicadores.diasDeEspera} dias</td>
+					</tr>
+					<tr class="odd">					
+						<td>Lavados pendientes:</td>
+						<td>${indicadores.lavadosPendientes}</td>
+					</tr>
+					<tr class="even">					
+						<td>Secados Pendientes:</td>
+						<td>${indicadores.secadosPendientes}</td>
+					</tr>
+					<tr class="odd">					
+						<td>Capacidad de lavado diaria:</td>
+						<td>${indicadores.capacidadDeLavadoDiaria}</td>
+					</tr>
+					<tr class="even">					
+						<td>Capacidad de secado diaria:</td>
+						<td>${indicadores.capacidadDeSecadoDiaria}</td>
+					</tr>
+				</tbody>
+			</table>
+	<h3>Favoritos</h3>
 		<pulko:item controller="OrdenDeTrabajo" name="Orden de trabajo"
 			action="index" image="icon_lavarropa.png" />
-		<hr width="95%">
+		<pulko:item controller="ReportesCobrosXPeriodo" name="Cobros por Mes"
+			action="index" image="icon_cobrosxmes.png" />
 		<pulko:item controller="Cobro" name="Cobro" action="index"
 			image="icon_cobros.png" />
-		<pulko:item controller="Cliente" name="Cliente" action="index"
-			image="icon_clientes.png" />
-		<pulko:item controller="TipoServicio" name="Servicios" action="index"
-			image="icon_servicios.png" />
-		<hr width="95%">
-		<pulko:item controller="Usuario" name="Usuario" action="index"
-			image="icon_usuarios.png" />
-		<pulko:item controller="Rol" name="Rol" action="index"
-			image="icon_roles.png" />
+			
+
+		
 
 	</div>
 </body>

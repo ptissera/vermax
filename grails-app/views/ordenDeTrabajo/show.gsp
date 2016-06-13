@@ -183,17 +183,14 @@
 					<g:link class="edit" action="completarLavado"
 						resource="${ordenDeTrabajoInstance}">Completado</g:link>
 					<g:if test="${ordenDeTrabajoInstance.pagado == false}">
-						<g:link class="edit" action="cancelarLavado"
-							resource="${ordenDeTrabajoInstance}">Cancelar Orden</g:link>
+						
 					</g:if>
 				</g:if>
 				<g:if
 					test="${ordenDeTrabajoInstance?.estado == EstadosDeLaOrden.Completo}">
-					<g:link class="edit" action="entregarLavado"
+					<g:if test="${ordenDeTrabajoInstance.pagado == true}">
+						<g:link class="edit" action="entregarLavado"
 						resource="${ordenDeTrabajoInstance}">Entregado</g:link>
-					<g:if test="${ordenDeTrabajoInstance.pagado == false}">
-						<g:link class="edit" action="cancelarLavado"
-							resource="${ordenDeTrabajoInstance}">Cancelar Orden</g:link>
 					</g:if>
 				</g:if>
 				<g:if test="${ordenDeTrabajoInstance.pagado == false}">

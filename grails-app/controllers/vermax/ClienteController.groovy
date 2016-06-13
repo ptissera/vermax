@@ -20,6 +20,7 @@ class ClienteController {
     }
 
     def create() {
+		session.regresarAOrden = params.regresarAOrden == 'yes'
         respond new Cliente(params)
     }
 
@@ -37,13 +38,17 @@ class ClienteController {
 
         clienteInstance.save flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'cliente.label', default: 'Cliente'), clienteInstance.id])
-                redirect clienteInstance
-            }
-            '*' { respond clienteInstance, [status: CREATED] }
-        }
+		if (session.regresarAOrden) {
+	        redirect(controller:"ordenDeTrabajo",action: 'create')
+		} else {
+		  request.withFormat {
+	            form multipartForm {
+	                flash.message = message(code: 'default.created.message', args: [message(code: 'cliente.label', default: 'Cliente'), clienteInstance.id])
+	                redirect clienteInstance
+	            }
+	            '*' { respond clienteInstance, [status: CREATED] }
+	        }
+		  }
     }
 
     def edit(Cliente clienteInstance) {
